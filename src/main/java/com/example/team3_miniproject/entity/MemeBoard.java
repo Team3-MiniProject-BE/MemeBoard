@@ -1,5 +1,7 @@
 package com.example.team3_miniproject.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,8 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
-public class MemeBoard {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class MemeBoard extends Timestamped{
     @Id
     @Column(name = "MEMEBOARD_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +28,7 @@ public class MemeBoard {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String img;
 
     @Column(nullable = false)
@@ -40,5 +42,18 @@ public class MemeBoard {
 
     @Column(nullable = false)
     private String exam3;
-}
 
+    @Builder
+    public MemeBoard(String username, String nickname, String password, String title,
+                     int answerValue, String exam1, String exam2, String exam3) {
+
+        this.username = username;
+        this.nickname = nickname;
+        this.password = password;
+        this.title = title;
+        this.answerValue = answerValue;
+        this.exam1 = exam1;
+        this.exam2 = exam2;
+        this.exam3 = exam3;
+    }
+}
