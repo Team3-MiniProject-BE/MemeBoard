@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class MemeBoard {
+public class MemeBoard extends Timestamped {
     @Id
     @Column(name = "MEMEBOARD_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
