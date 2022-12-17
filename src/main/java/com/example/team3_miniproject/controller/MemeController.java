@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +27,13 @@ public class MemeController {
     @GetMapping("/api/memes")
     public Page<MemeResponseDto> getMemeList(@PageableDefault(size = 12) Pageable pageable) {
         return memeService.getMemeList(pageable);
+    }
+
+    // 밈 페이지 수정
+    @PatchMapping("api/meme/{id}")
+    public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,
+                                                         @RequestBody MemeRequestDto memeRequestDto) {
+        memeService.updateMeme(id, memeRequestDto);
+        return ResponseEntity.ok(new MessageResponseDto("수정 성공",HttpStatus.OK));
     }
 }
