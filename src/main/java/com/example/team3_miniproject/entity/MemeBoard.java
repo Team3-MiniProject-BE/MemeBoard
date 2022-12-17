@@ -1,10 +1,7 @@
 package com.example.team3_miniproject.entity;
 
-import com.example.team3_miniproject.dto.MemeRequestDto;
-import com.example.team3_miniproject.dto.MemeResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 
@@ -43,14 +40,5 @@ public class MemeBoard extends Timestamped {
 
     @Column(nullable = false)
     private String exam3;
-
-    public void update(MemeRequestDto memeRequestDto) {
-        this.title = memeRequestDto.getTitle();
-        this.img = memeRequestDto.getImg();
-        this.answerValue = memeRequestDto.getAnswerValue();
-        this.exam1 = memeRequestDto.getExam1();
-        this.exam2 = memeRequestDto.getExam2();
-        this.exam3 = memeRequestDto.getExam3();
-    }
 }
 
