@@ -7,5 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     @Transactional
-    void deleteByMemeBoardAndUser(MemeBoard memeBoard, String memeRequestDto);
+    void deleteByMemeBoardAndId(int boardId, int user);
+
+    void deleteByMemeBoard(Long boardId);
+
 }

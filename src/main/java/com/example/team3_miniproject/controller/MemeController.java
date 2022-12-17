@@ -17,8 +17,8 @@ public class MemeController {
     private final MimeService mineService;
 
     // 밈 페이지 수정
-    @PatchMapping("api/meme/{memepostId}")
-    public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable long id,
+    @PatchMapping("api/meme/{id}")
+    public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,
                                      @RequestBody MemeRequestDto memeRequestDto) {
         mineService.updateMeme(id, memeRequestDto);
         return ResponseEntity.ok(new MessageResponseDto(HttpStatus.OK, "수정 성공"));

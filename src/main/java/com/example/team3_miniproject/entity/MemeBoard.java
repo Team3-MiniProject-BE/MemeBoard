@@ -44,10 +44,6 @@ public class MemeBoard extends Timestamped {
     @Column(nullable = false)
     private String exam3;
 
-    @OneToOne
-    @JoinColumn(name = "meme_Id", nullable = false)
-    private Answer answer;
-
     public void update(MemeRequestDto memeRequestDto) {
         this.title = memeRequestDto.getTitle();
         this.img = memeRequestDto.getImg();
