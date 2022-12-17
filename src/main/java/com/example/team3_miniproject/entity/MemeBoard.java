@@ -1,5 +1,6 @@
 package com.example.team3_miniproject.entity;
 
+import com.example.team3_miniproject.dto.MemeRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class MemeBoard extends Timestamped{
     @Column(nullable = false)
     private String title;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String img;
 
     @Column(nullable = false)
@@ -55,5 +56,14 @@ public class MemeBoard extends Timestamped{
         this.exam1 = exam1;
         this.exam2 = exam2;
         this.exam3 = exam3;
+    }
+
+    public void update(MemeRequestDto memeRequestDto) {
+        this.title = memeRequestDto.getTitle();
+        this.img = memeRequestDto.getImg();
+        this.answerValue = memeRequestDto.getAnswerValue();
+        this.exam1 = memeRequestDto.getExam1();
+        this.exam2 = memeRequestDto.getExam2();
+        this.exam3 = memeRequestDto.getExam3();
     }
 }

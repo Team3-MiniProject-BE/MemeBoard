@@ -1,4 +1,7 @@
 package com.example.team3_miniproject.repository;
 
-public class AnswerRepository {
+import com.example.team3_miniproject.entity.Answer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AnswerRepository extends JpaRepository<Answer, Long> {
 }
