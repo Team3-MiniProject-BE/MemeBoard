@@ -30,10 +30,16 @@ public class MemeController {
     }
 
     // 밈 페이지 수정
-    @PatchMapping("api/meme/{id}")
+    @PatchMapping("/api/meme/{id}")
     public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,
                                                          @RequestBody MemeRequestDto memeRequestDto) {
         memeService.updateMeme(id, memeRequestDto);
         return ResponseEntity.ok(new MessageResponseDto("수정 성공",HttpStatus.OK));
+    }
+
+    @DeleteMapping("/api/meme/{id}")
+    public ResponseEntity<MessageResponseDto> deleteReply(@PathVariable Long id) {
+        memeService.deleteMeme(id);
+        return ResponseEntity.ok(new MessageResponseDto(HttpStatus.OK));
     }
 }

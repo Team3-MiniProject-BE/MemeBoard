@@ -3,6 +3,7 @@ package com.example.team3_miniproject.service;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.entity.Answer;
+import com.example.team3_miniproject.entity.AnswerReply;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.repository.AnswerRepository;
 import com.example.team3_miniproject.repository.MemeRepository;
@@ -52,5 +53,12 @@ public class MemeService {
                 () -> new RuntimeException("삭제할 정보가 없습니다.")
         );
         answerRepository.delete(answer);
+    }
+
+    public void deleteMeme(Long id) {
+        MemeBoard meme = memeRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("해당 게시글이 없습니다.")
+        );
+        memeRepository.delete(meme);
     }
 }

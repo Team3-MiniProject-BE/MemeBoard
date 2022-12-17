@@ -5,11 +5,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@SQLDelete(sql = "update meme_board set deleted = true where memeboard_id = ?") // soft delete 삭제 처리
+@Where(clause = "deleted = false")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemeBoard extends Timestamped{
     @Id
@@ -29,7 +33,7 @@ public class MemeBoard extends Timestamped{
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String img;
 
     @Column(nullable = false)
@@ -43,6 +47,8 @@ public class MemeBoard extends Timestamped{
 
     @Column(nullable = false)
     private String exam3;
+
+    private boolean deleted = Boolean.FALSE; // 삭제할 것인지
 
     @Builder
     public MemeBoard(String username, String nickname, String password, String title,
@@ -60,7 +66,7 @@ public class MemeBoard extends Timestamped{
 
     public void update(MemeRequestDto memeRequestDto) {
         this.title = memeRequestDto.getTitle();
-        this.img = memeRequestDto.getImg();
+//        this.img = memeRequestDto.getImg();
         this.answerValue = memeRequestDto.getAnswerValue();
         this.exam1 = memeRequestDto.getExam1();
         this.exam2 = memeRequestDto.getExam2();
