@@ -29,7 +29,6 @@ public class MemeService {
     }
 
     // 밈 게시글 수정
-//    @Transactional
     public MemeResponseDto updateMeme(Long id, MemeRequestDto memeRequestDto) {
         // id와 일치하는 게시글 유무
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
