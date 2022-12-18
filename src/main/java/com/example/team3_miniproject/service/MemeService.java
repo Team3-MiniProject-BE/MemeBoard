@@ -55,10 +55,18 @@ public class MemeService {
         answerRepository.delete(answer);
     }
 
+    public void deleteAnswer(MemeBoard meme) {
+        Answer answer = answerRepository.findByMemeBoard(meme).orElseThrow(
+                () -> new RuntimeException("삭제할 정보가 없습니다.")
+        );
+        answerRepository.delete(answer);
+    }
     public void deleteMeme(Long id) {
         MemeBoard meme = memeRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("해당 게시글이 없습니다.")
         );
+        // 게시글 삭제시 연관된 answer도 삭제
+        deleteAnswer(meme);
         memeRepository.delete(meme);
     }
 }
