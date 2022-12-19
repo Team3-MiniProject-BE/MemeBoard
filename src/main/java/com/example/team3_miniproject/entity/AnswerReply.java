@@ -1,5 +1,7 @@
 package com.example.team3_miniproject.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class AnswerReply {
     @Id
     @Column(name = "REPLY_ID")
