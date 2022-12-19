@@ -4,8 +4,10 @@ import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.entity.Answer;
 import com.example.team3_miniproject.entity.MemeBoard;
+import com.example.team3_miniproject.entity.User;
 import com.example.team3_miniproject.repository.AnswerRepository;
 import com.example.team3_miniproject.repository.MemeRepository;
+import com.example.team3_miniproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +20,10 @@ public class MemeService {
 
     private final MemeRepository memeRepository;
     private final AnswerRepository answerRepository;
+    private final UserRepository userRepository;
 
-    public MemeResponseDto saveMeme(MemeRequestDto requestDto) {
+    public MemeResponseDto saveMeme(MemeRequestDto requestDto, User user) {
+        checkUserExists(userRepository, user);
         MemeBoard meme = memeRepository.save(requestDto.toEntity());
         return new MemeResponseDto(meme);
     }
@@ -47,5 +51,17 @@ public class MemeService {
         } else {
             throw new RuntimeException("게시글 작성자가 아닙니다");
         }
+    }
+
+    private User checkUserExists(UserRepository userRepository, User user) {
+        return userRepository.findByUsername(user.getUsername()).orElseThrow(
+                () -> new RuntimeException("계정 정보가 없습니다.")
+        );
+    }
+
+    private MemeBoard checkMemeBoardExists(MemeRepository memeRepository, Long id) {
+        return memeRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("게시글이 존재하지 않습니다.")
+        );
     }
 }
