@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class MemeService {
     }
 
     // 밈 게시글 수정
+    @Transactional
     public MemeResponseDto updateMeme(Long id, MemeRequestDto memeRequestDto) {
         // id와 일치하는 게시글 유무
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
@@ -37,20 +39,13 @@ public class MemeService {
 
         // 게시글 작성자 확인
         if (memeBoard.getUsername().equals(memeRequestDto.getUsername())) {
+            // 게시글 업데이트
             memeBoard.update(memeRequestDto);
-            memeRepository.save(memeBoard);
-            answerDeleteMeme(id);
+            // 게시글 정답정보 삭제
+            answerRepository.deleteByMemeBoard(memeBoard);
             return new MemeResponseDto(memeBoard);
         } else {
             throw new RuntimeException("게시글 작성자가 아닙니다");
         }
-    }
-
-    // answer 테이블 삭제
-    public void answerDeleteMeme(Long id) {
-        Answer answer = answerRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("삭제할 정보가 없습니다.")
-        );
-        answerRepository.delete(answer);
     }
 }
