@@ -14,12 +14,12 @@ public class AnswerReplyResponseDto {
     private Long id;
     private Long MemeBoardId;
     private String username;
-    private String contents;
+    private String comment;
 
     public AnswerReplyResponseDto(AnswerReply answerReply) {
         this.id = answerReply.getId();
         this.MemeBoardId = answerReply.getMemeBoard().getId();
         this.username = answerReply.getUsername();
-        this.contents = answerReply.getComment();
+        this.comment = answerReply.getComment();
     }
 }
