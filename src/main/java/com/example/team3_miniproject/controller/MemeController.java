@@ -37,6 +37,14 @@ public class MemeController {
         return memeService.getMemeList(pageable);
     }
 
+    // 선택 조회 기능
+    // 작성자 : 김규리
+    @GetMapping("/api/memes/{id}")
+    public MemeResponseDto getMemos(@PathVariable Long id) {
+        MemeResponseDto memeResponseDto = memeService.getMemos(id);
+        return memeResponseDto;
+    }
+
     // 밈 페이지 수정
     @PatchMapping("api/meme/{id}")
     public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,
