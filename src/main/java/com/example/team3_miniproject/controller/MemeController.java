@@ -53,4 +53,11 @@ public class MemeController {
         s3Uploader.upload(id, multipartFile, "static");
         return ResponseEntity.ok(new MessageResponseDto("이미지 업로드 완료", HttpStatus.OK));
     }
+
+    @DeleteMapping("/api/meme/{id}")
+    public ResponseEntity<MessageResponseDto> deleteMeme(@PathVariable Long id,
+                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        memeService.deleteMeme(id, userDetails.getUser());
+        return ResponseEntity.ok(new MessageResponseDto(HttpStatus.OK));
+    }
 }

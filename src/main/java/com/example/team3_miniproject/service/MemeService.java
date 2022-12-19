@@ -23,7 +23,7 @@ public class MemeService {
     private final UserRepository userRepository;
 
     public MemeResponseDto saveMeme(MemeRequestDto requestDto, User user) {
-        checkUser(userRepository, user);
+        checkUserExists(userRepository, user);
         MemeBoard meme = memeRepository.save(requestDto.toEntity());
         return new MemeResponseDto(meme);
     }
@@ -53,9 +53,23 @@ public class MemeService {
         }
     }
 
-    private User checkUser(UserRepository userRepository, User user) {
+    @Transactional
+    public void deleteMeme(Long id, User user) {
+        checkUserExists(userRepository, user);
+        MemeBoard meme = checkMemeBoardExists(memeRepository, id);
+        memeRepository.delete(meme);
+        answerRepository.deleteByMemeBoard(meme);
+    }
+
+    private User checkUserExists(UserRepository userRepository, User user) {
         return userRepository.findByUsername(user.getUsername()).orElseThrow(
                 () -> new RuntimeException("계정 정보가 없습니다.")
+        );
+    }
+
+    private MemeBoard checkMemeBoardExists(MemeRepository memeRepository, Long id) {
+        return memeRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("게시글이 존재하지 않습니다.")
         );
     }
 }
