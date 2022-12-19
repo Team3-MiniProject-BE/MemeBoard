@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rds-intstance.cglmyo5weiko.ap-northeast-2.rds.amazonaws.com:3306/meme?serverTimezone=Asia/Seoul
+    username: admin
+    password: rlarbfl1!
+  thymeleaf:
+    cache: 'false'
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  #  h2:
+  #    console:
+  #      enabled: 'true'
+  # multipartFile 용량 늘려주는 설정
+servlet:
+  multipart:
+    max-file-size: 10MB
+    max-request-size: 10MB
+
+cloud:
+  aws:
+    # s3 bucket 이름 배포시 변경 필요
+    s3:
+      bucket: miniprojectmeme
+
+    # s3 region
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
