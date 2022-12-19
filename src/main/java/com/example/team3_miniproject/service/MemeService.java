@@ -53,6 +53,14 @@ public class MemeService {
         }
     }
 
+    @Transactional
+    public void deleteMeme(Long id, User user) {
+        checkUserExists(userRepository, user);
+        MemeBoard meme = checkMemeBoardExists(memeRepository, id);
+        memeRepository.delete(meme);
+        answerRepository.deleteByMemeBoard(meme);
+    }
+
     private User checkUserExists(UserRepository userRepository, User user) {
         return userRepository.findByUsername(user.getUsername()).orElseThrow(
                 () -> new RuntimeException("계정 정보가 없습니다.")

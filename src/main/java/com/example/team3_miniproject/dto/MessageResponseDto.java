@@ -14,4 +14,8 @@ public class MessageResponseDto {
         this.msg = msg;
         this.statusCode = statusCode;
     }
+
+    public MessageResponseDto(HttpStatus statusCode) {
+        this.statusCode = statusCode;
+    }
 }
