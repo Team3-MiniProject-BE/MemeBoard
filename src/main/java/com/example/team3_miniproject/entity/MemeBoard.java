@@ -1,12 +1,15 @@
 package com.example.team3_miniproject.entity;
 
 import com.example.team3_miniproject.dto.MemeRequestDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,6 +46,9 @@ public class MemeBoard extends Timestamped{
 
     @Column(nullable = false)
     private String exam3;
+
+    @OneToMany(mappedBy = "memeBoard", cascade = CascadeType.ALL)
+    private List<Comment> comment = new ArrayList<>();
 
     @Builder
     public MemeBoard(String username, String nickname, String password, String title,
