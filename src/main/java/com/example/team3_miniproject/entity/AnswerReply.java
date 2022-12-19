@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class AnswerReply {
     @Id
     @Column(name = "REPLY_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -22,4 +22,10 @@ public class AnswerReply {
 
     @Column(nullable = false)
     private String comment;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private MemeBoard memeBoard;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User user;
 }

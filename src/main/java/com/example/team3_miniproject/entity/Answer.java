@@ -11,14 +11,14 @@ import javax.persistence.*;
 public class Answer {
     @Id
     @Column(name = "ANSWER_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "MEMEBOARD_ID", nullable = false)
     private MemeBoard memeBoard;
 }
