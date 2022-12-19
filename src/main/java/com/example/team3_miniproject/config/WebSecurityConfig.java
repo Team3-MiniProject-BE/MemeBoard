@@ -26,6 +26,7 @@ public class WebSecurityConfig {
     private final JwtUtil jwtUtil;
 
     @Bean                                       // 빈을 선언해 컨테이너에 등록
+
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -36,6 +37,7 @@ public class WebSecurityConfig {
         return (web) -> web.ignoring()
                 .requestMatchers(PathRequest.toH2Console())
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+
     }
 
     @Bean
@@ -51,8 +53,6 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
                 // JWT 인증/인가를 사용하기 위한 설정
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-
-//      http.formLogin().loginPage("/api/user/login-page").permitAll();                 // 리소스의 접근을 인증절차 없이 허용
 
         http.exceptionHandling().accessDeniedPage("/api/user/forbidden");
 

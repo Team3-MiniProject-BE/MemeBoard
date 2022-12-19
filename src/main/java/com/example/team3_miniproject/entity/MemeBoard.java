@@ -33,9 +33,6 @@ public class MemeBoard extends Timestamped{
     private String title;
 
     @Column(nullable = false)
-    private String img;
-
-    @Column(nullable = false)
     private int answerValue;
 
     @Column(nullable = false)
@@ -47,8 +44,13 @@ public class MemeBoard extends Timestamped{
     @Column(nullable = false)
     private String exam3;
 
+    // JPA 연관관계 추가 (첨부파일은 게시판에 종속적이므로 게시판이 첨부파일 엔티티의 생명주기를 관리한다)
+    @OneToMany(mappedBy = "memeBoard", cascade = CascadeType.ALL)
+    private List<Attachment> attachedFiles = new ArrayList<>();
+
     @OneToMany(mappedBy = "memeBoard", cascade = CascadeType.ALL)
     private List<AnswerReply> answerReplyList = new ArrayList<>();
+
 
     @Builder
     public MemeBoard(String username, String nickname, String password, String title,
