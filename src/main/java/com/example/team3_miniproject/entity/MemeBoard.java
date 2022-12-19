@@ -33,6 +33,9 @@ public class MemeBoard extends Timestamped{
     private String title;
 
     @Column(nullable = false)
+    private String img;
+
+    @Column(nullable = false)
     private int answerValue;
 
     @Column(nullable = false)

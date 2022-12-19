@@ -1,5 +1,6 @@
 package com.example.team3_miniproject.entity;
 
+import com.example.team3_miniproject.dto.AnswerReplyResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,4 +33,16 @@ public class AnswerReply {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
+
+    public AnswerReply(AnswerReplyResponseDto answerReplyResponseDto, MemeBoard memeBoard, User user) {
+        this.id = answerReplyResponseDto.getId();
+        this.comment = answerReplyResponseDto.getComment();
+        this.username = answerReplyResponseDto.getUsername();
+        this.memeBoard = memeBoard;
+        this.user = user;
+    }
+
+    public void update(AnswerReplyResponseDto answerReplyResponseDto) {
+        this.comment  = answerReplyResponseDto.getComment();
+    }
 }

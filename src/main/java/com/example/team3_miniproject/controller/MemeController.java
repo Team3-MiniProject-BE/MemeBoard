@@ -43,7 +43,6 @@ public class MemeController {
                                                          @RequestBody MemeRequestDto memeRequestDto) {
     memeService.updateMeme(id, memeRequestDto);
     return ResponseEntity.ok(new MessageResponseDto("수정 성공",HttpStatus.OK));
-
     }
     
     // 밈 사진 업로드 API
