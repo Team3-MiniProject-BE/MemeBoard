@@ -21,6 +21,9 @@ servlet:
   multipart:
     max-file-size: 10MB
     max-request-size: 10MB
+jwt:
+  secret:
+    key: 7ZWt7ZW0OTntmZTsnbTtjIXtlZzqta3snYTrhIjrqLjshLjqs4TroZzrgpjslYTqsIDsnpDtm4zrpa3tlZzqsJzrsJzsnpDrpbzrp4zrk6TslrTqsIDsnpA=
 
 cloud:
   aws:
