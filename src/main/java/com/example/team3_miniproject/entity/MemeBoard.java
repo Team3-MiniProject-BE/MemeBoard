@@ -16,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemeBoard extends Timestamped{
     @Id
-    @Column(name = "MEMEBOARD_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "MEMEBOARD_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -48,7 +48,7 @@ public class MemeBoard extends Timestamped{
     private String exam3;
 
     @OneToMany(mappedBy = "memeBoard", cascade = CascadeType.ALL)
-    private List<Comment> comment = new ArrayList<>();
+    private List<AnswerReply> answerReplyList = new ArrayList<>();
 
     @Builder
     public MemeBoard(String username, String nickname, String password, String title,
