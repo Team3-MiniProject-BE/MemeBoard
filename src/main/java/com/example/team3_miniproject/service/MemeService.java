@@ -3,9 +3,11 @@ package com.example.team3_miniproject.service;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.entity.Answer;
+import com.example.team3_miniproject.entity.Attachment;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.entity.User;
 import com.example.team3_miniproject.repository.AnswerRepository;
+import com.example.team3_miniproject.repository.AttachmentRepository;
 import com.example.team3_miniproject.repository.MemeRepository;
 import com.example.team3_miniproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class MemeService {
     private final MemeRepository memeRepository;
     private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
+    private final AttachmentRepository attachmentRepository;
 
     public MemeResponseDto saveMeme(MemeRequestDto requestDto, User user) {
         checkUserExists(userRepository, user);
@@ -31,6 +34,16 @@ public class MemeService {
     public Page<MemeResponseDto> getMemeList(Pageable pageable) {
         Page<MemeBoard> memes = memeRepository.findAll(pageable);
         return memes.map(e -> new MemeResponseDto(e));
+    }
+
+    // 선택 페이지 조회
+    // 작성자 : 김규리
+    public MemeResponseDto getMemos(Long id) {
+        MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("확인할 게시글이 없습니다.")
+        );
+        Attachment attachment = attachmentRepository.findByMemeBoardId(id);
+        return new MemeResponseDto(memeBoard, attachment);
     }
 
     // 밈 게시글 수정

@@ -1,5 +1,6 @@
 package com.example.team3_miniproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Attachment {
     private String originFilename;
     private String storeFilename;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memeBoard_id")
     private MemeBoard memeBoard;
