@@ -21,7 +21,6 @@ public class MemeResponseDto {
     private String exam2;
     private String exam3;
     private boolean IsCorrect;
-
     private List<AnswerReply> answerReplyList = new ArrayList<>();
 
     public MemeResponseDto(MemeBoard meme) {
