@@ -4,7 +4,6 @@ import com.example.team3_miniproject.dto.AnswerRequestDto;
 import com.example.team3_miniproject.dto.MemeListResponseDto;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
-import com.example.team3_miniproject.entity.AnswerReply;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.entity.User;
 import com.example.team3_miniproject.repository.AnswerReplyRepository;
@@ -15,15 +14,11 @@ import com.example.team3_miniproject.repository.MemeRepository;
 import com.example.team3_miniproject.repository.UserRepository;
 import com.example.team3_miniproject.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
-import org.h2.api.ErrorCode;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +29,6 @@ public class MemeService {
 
     private final MemeRepository memeRepository;
     private final AnswerRepository answerRepository;
-
     private final AnswerReplyRepository answerReplyRepository;
     private final UserRepository userRepository;
     private final S3Uploader s3Uploader;
@@ -63,18 +57,12 @@ public class MemeService {
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                  // 확인할 게시글이 없습니다.
         );
-        List<AnswerReply> replies = answerReplyRepository.findAllByMemeBoard(memeBoard);
-
-        if (replies.isEmpty()){
-            return new MemeResponseDto(memeBoard);
-        } else {
-            return new MemeResponseDto(memeBoard);
-        }
+        return new MemeResponseDto(memeBoard);
     }
 
     // 밈 게시글 수정
     @Transactional
-    public MemeResponseDto updateMeme(Long id, MemeRequestDto memeRequestDto, MultipartFile multipartFile, String dirName ) throws IOException {
+    public MemeResponseDto updateMeme(Long id, MemeRequestDto memeRequestDto, MultipartFile multipartFile, String dirName, User user) throws IOException {
         // id와 일치하는 게시글 유무
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                   // 수정할 밈 게시글이 없습니다.
@@ -83,7 +71,7 @@ public class MemeService {
         String attachedFiles = s3Uploader.upload(multipartFile, dirName);
 
         // 게시글 작성자 확인
-        if (memeBoard.getUsername().equals(memeRequestDto.getUsername())) {
+        if (memeBoard.getUsername().equals(user.getUsername())) {
             // 게시글 업데이트
             memeBoard.update(memeRequestDto,attachedFiles);
             // 게시글 정답정보 삭제
