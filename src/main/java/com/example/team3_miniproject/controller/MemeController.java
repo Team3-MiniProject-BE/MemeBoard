@@ -1,5 +1,6 @@
 package com.example.team3_miniproject.controller;
 
+import com.example.team3_miniproject.dto.AnswerRequestDto;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.dto.MessageResponseDto;
@@ -26,12 +27,6 @@ public class MemeController {
     private final MemeService memeService;
     private final S3Uploader s3Uploader;
 
-//    @PostMapping("/api/memepost")
-//    public ResponseEntity<MessageResponseDto> saveMeme(@RequestBody MemeRequestDto requestDto,
-//                                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        memeService.saveMeme(requestDto, userDetails.getUser());
-//        return ResponseEntity.ok(new MessageResponseDto("등록 완료", HttpStatus.OK));
-//    }
 
     @PostMapping(value = "/api/memepost", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})           // 파일 첨부 + 게시판 작성을 위한 Madia Type 선언
     public ResponseEntity<MessageResponseDto> saveMeme(@RequestPart MemeRequestDto requestDto,                                            // Requestpart 어노테이션을 사용해서 requestdto로 데이터를 전달 받음
@@ -76,5 +71,12 @@ public class MemeController {
                                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
         memeService.deleteMeme(id, userDetails.getUser());
         return ResponseEntity.ok(new MessageResponseDto(HttpStatus.OK));
+    }
+
+    @PatchMapping("/api/memeanswer/{Id}")
+    public ResponseEntity<MessageResponseDto> incollectAnswer(@PathVariable Long Id, @RequestBody AnswerRequestDto request){
+        memeService.incollectAnswer(Id, request);
+        return ResponseEntity.ok(new MessageResponseDto("정답입니다! 댓글을 확인해보세요",HttpStatus.OK));
+
     }
 }

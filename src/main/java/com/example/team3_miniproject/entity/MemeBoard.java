@@ -49,15 +49,16 @@ public class MemeBoard extends Timestamped{
     @Column(nullable = true)
     private String attachedFile;
 
+    @Column(nullable = true)
+    private boolean IsCorrect = false;
+
 
     @OneToMany(mappedBy = "memeBoard", cascade = CascadeType.ALL)
     private List<AnswerReply> answerReplyList = new ArrayList<>();
 
-
     @Builder
     public MemeBoard(String username, String nickname, String password, String title,
                      int answerValue, String exam1, String exam2, String exam3, String attachedFile) {
-
         this.username = username;
         this.nickname = nickname;
         this.password = password;
@@ -76,5 +77,9 @@ public class MemeBoard extends Timestamped{
         this.exam2 = memeRequestDto.getExam2();
         this.exam3 = memeRequestDto.getExam3();
         this.attachedFile = attachedFile;
+    }
+
+    public void statusUpdate(boolean IsCorrect){
+        this.IsCorrect = IsCorrect;
     }
 }
