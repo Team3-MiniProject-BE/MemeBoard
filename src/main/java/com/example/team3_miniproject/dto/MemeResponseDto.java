@@ -1,7 +1,6 @@
 package com.example.team3_miniproject.dto;
 
 import com.example.team3_miniproject.entity.AnswerReply;
-import com.example.team3_miniproject.entity.Attachment;
 import com.example.team3_miniproject.entity.MemeBoard;
 import lombok.Getter;
 
