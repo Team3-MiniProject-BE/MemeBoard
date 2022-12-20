@@ -1,5 +1,6 @@
 package com.example.team3_miniproject.entity;
 
+import com.example.team3_miniproject.dto.AnswerReplyResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +28,21 @@ public class AnswerReply {
     @Column(nullable = false)
     private String comment;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private MemeBoard memeBoard;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private User user;
+
+    public AnswerReply(AnswerReplyResponseDto answerReplyResponseDto, MemeBoard memeBoard, User user) {
+        this.comment = answerReplyResponseDto.getComment();
+        this.username = user.getUsername();
+        this.nickname = user.getNickname();
+        this.memeBoard = memeBoard;
+        this.user = user;
+    }
+
+    public void update(AnswerReplyResponseDto answerReplyResponseDto) {
+        this.comment  = answerReplyResponseDto.getComment();
+    }
 }
