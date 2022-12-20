@@ -52,8 +52,9 @@ public class MemeController {
     @PatchMapping(value = "/api/meme/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})         // 파일 첨부 + 게시판 작성을 위한 Madia Type 선언
     public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,                                                           // 게시물 Id 값
                                                          @RequestPart MemeRequestDto requestDto,                                          // Requestpart 어노테이션을 사용해서 requestdto로 데이터를 전달 받음
-                                                         @RequestPart("data") MultipartFile multipartFile) throws IOException{            // Requestpart 어노테이션을 사용해서 data로 파일을 전달 받음
-    memeService.updateMeme(id, requestDto, multipartFile, "static");                                                              // 게시물 Id, requestDto, 첨부파일, 업로드 디렉토리 명
+                                                         @RequestPart("data") MultipartFile multipartFile,
+                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException{            // Requestpart 어노테이션을 사용해서 data로 파일을 전달 받음
+        memeService.updateMeme(id, requestDto, multipartFile, "static", userDetails.getUser());                                                       // 게시물 Id, requestDto, 첨부파일, 업로드 디렉토리 명
     return ResponseEntity.ok(new MessageResponseDto("수정 성공",HttpStatus.OK));
     }
     
