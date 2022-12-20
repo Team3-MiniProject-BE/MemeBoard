@@ -13,6 +13,7 @@ import java.util.List;
 public class MemeResponseDto {
     private Long id;
     private String title;
+    private String username;
     private String nickname;
     private LocalDateTime createdAt;
     private String img;
@@ -28,6 +29,7 @@ public class MemeResponseDto {
         this.id = meme.getId();
         this.IsCorrect = meme.isIsCorrect();
         this.title = meme.getTitle();
+        this.username = meme.getUsername();
         this.nickname = meme.getNickname();
         this.createdAt = meme.getCreatedAt();
         this.img = meme.getAttachedFile();
