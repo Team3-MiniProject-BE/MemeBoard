@@ -9,10 +9,18 @@ import org.springframework.http.HttpStatus;
 public class MessageResponseDto {
     private String msg;
     private HttpStatus statusCode;
+    private MemeResponseDto memeResponseDto;
+
 
     public MessageResponseDto(String msg, HttpStatus statusCode) {
         this.msg = msg;
         this.statusCode = statusCode;
+    }
+
+    public MessageResponseDto(String msg, HttpStatus statusCode, MemeResponseDto memeResponseDto) {
+        this.msg = msg;
+        this.statusCode = statusCode;
+        this.memeResponseDto = memeResponseDto;
     }
 
     public MessageResponseDto(HttpStatus statusCode) {
