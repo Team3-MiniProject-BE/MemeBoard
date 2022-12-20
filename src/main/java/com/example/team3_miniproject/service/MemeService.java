@@ -4,8 +4,10 @@ import com.example.team3_miniproject.dto.AnswerRequestDto;
 import com.example.team3_miniproject.dto.MemeListResponseDto;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
+import com.example.team3_miniproject.entity.AnswerReply;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.entity.User;
+import com.example.team3_miniproject.repository.AnswerReplyRepository;
 import com.example.team3_miniproject.exception.ErrorCode;
 import com.example.team3_miniproject.exception.RequestException;
 import com.example.team3_miniproject.repository.AnswerRepository;
@@ -13,6 +15,7 @@ import com.example.team3_miniproject.repository.MemeRepository;
 import com.example.team3_miniproject.repository.UserRepository;
 import com.example.team3_miniproject.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
+import org.h2.api.ErrorCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,12 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 @RequiredArgsConstructor
 public class MemeService {
 
     private final MemeRepository memeRepository;
     private final AnswerRepository answerRepository;
+
+    private final AnswerReplyRepository answerReplyRepository;
     private final UserRepository userRepository;
     private final S3Uploader s3Uploader;
 
@@ -57,7 +63,13 @@ public class MemeService {
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                  // 확인할 게시글이 없습니다.
         );
-        return new MemeResponseDto(memeBoard);
+        List<AnswerReply> replies = answerReplyRepository.findAllByMemeBoard(memeBoard);
+
+        if (replies.isEmpty()){
+            return new MemeResponseDto(memeBoard);
+        } else {
+            return new MemeResponseDto(memeBoard);
+        }
     }
 
     // 밈 게시글 수정

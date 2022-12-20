@@ -28,7 +28,7 @@ public class AnswerReply {
     @Column(nullable = false)
     private String comment;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private MemeBoard memeBoard;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

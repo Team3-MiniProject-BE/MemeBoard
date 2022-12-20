@@ -1,6 +1,7 @@
 package com.example.team3_miniproject.dto;
 
 import com.example.team3_miniproject.entity.AnswerReply;
+import com.example.team3_miniproject.entity.Attachment;
 import com.example.team3_miniproject.entity.MemeBoard;
 import lombok.Getter;
 
@@ -20,7 +21,8 @@ public class MemeResponseDto {
     private String exam2;
     private String exam3;
     private boolean IsCorrect;
-    private List<AnswerReply> answerReplyList = new ArrayList<>();
+    private List<AnswerReply> answerReplyList;
+
 
     public MemeResponseDto(MemeBoard meme) {
         this.id = meme.getId();
