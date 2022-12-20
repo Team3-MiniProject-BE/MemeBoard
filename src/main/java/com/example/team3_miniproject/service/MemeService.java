@@ -1,6 +1,7 @@
 package com.example.team3_miniproject.service;
 
 import com.example.team3_miniproject.dto.AnswerRequestDto;
+import com.example.team3_miniproject.dto.MemeListResponseDto;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.entity.MemeBoard;
@@ -44,10 +45,10 @@ public class MemeService {
         return new MemeResponseDto(meme);
     }
 
-    public List<MemeResponseDto> getMemeList() {
+    public List<MemeListResponseDto> getMemeList() {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
         List<MemeBoard> memes = memeRepository.findAll(sort);
-        return memes.stream().map(MemeResponseDto::new).collect(Collectors.toList());
+        return memes.stream().map(MemeListResponseDto::new).collect(Collectors.toList());
     }
 
     // 선택 페이지 조회
