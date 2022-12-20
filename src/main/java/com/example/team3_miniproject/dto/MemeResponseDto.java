@@ -12,7 +12,7 @@ public class MemeResponseDto {
     private String title;
     private String nickname;
     private LocalDateTime createdAt;
-    private Attachment img;
+    private String img;
     private int answerValue;
     private String exam1;
     private String exam2;
@@ -23,18 +23,7 @@ public class MemeResponseDto {
         this.title = meme.getTitle();
         this.nickname = meme.getNickname();
         this.createdAt = meme.getCreatedAt();
-        this.answerValue = meme.getAnswerValue();
-        this.exam1 = meme.getExam1();
-        this.exam2 = meme.getExam2();
-        this.exam3 = meme.getExam3();
-    }
-
-    public MemeResponseDto(MemeBoard meme, Attachment img) {
-        this.id = meme.getId();
-        this.title = meme.getTitle();
-        this.nickname = meme.getNickname();
-        this.createdAt = meme.getCreatedAt();
-        this.img = img;
+        this.img = meme.getAttachedFile();
         this.answerValue = meme.getAnswerValue();
         this.exam1 = meme.getExam1();
         this.exam2 = meme.getExam2();
