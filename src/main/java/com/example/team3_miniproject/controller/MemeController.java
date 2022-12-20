@@ -73,10 +73,11 @@ public class MemeController {
         return ResponseEntity.ok(new MessageResponseDto(HttpStatus.OK));
     }
 
+    // 밈 퀴즈 정답 확인 API
     @PatchMapping("/api/memeanswer/{Id}")
     public ResponseEntity<MessageResponseDto> incollectAnswer(@PathVariable Long Id, @RequestBody AnswerRequestDto request){
-        memeService.incollectAnswer(Id, request);
-        return ResponseEntity.ok(new MessageResponseDto("정답입니다! 댓글을 확인해보세요",HttpStatus.OK));
+        MemeResponseDto memeResponseDto = memeService.incollectAnswer(Id, request);
+        return ResponseEntity.ok(new MessageResponseDto("정답입니다! 댓글을 확인해보세요",HttpStatus.OK, memeResponseDto));
 
     }
 }

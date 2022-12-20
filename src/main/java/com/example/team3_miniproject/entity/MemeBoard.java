@@ -49,7 +49,6 @@ public class MemeBoard extends Timestamped{
     @Column(nullable = true)
     private boolean IsCorrect = false;
 
-
     @OneToMany(mappedBy = "memeBoard", cascade = CascadeType.ALL)
     private List<AnswerReply> answerReplyList = new ArrayList<>();
 
