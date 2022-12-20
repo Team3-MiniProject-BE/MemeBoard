@@ -1,6 +1,7 @@
 package com.example.team3_miniproject.entity;
 
 import com.example.team3_miniproject.dto.AnswerReplyResponseDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,9 +29,11 @@ public class AnswerReply {
     @Column(nullable = false)
     private String comment;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private MemeBoard memeBoard;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private User user;
 
