@@ -31,13 +31,13 @@ public class AnswerReply {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private MemeBoard memeBoard;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private User user;
 
     public AnswerReply(AnswerReplyResponseDto answerReplyResponseDto, MemeBoard memeBoard, User user) {
-        this.id = answerReplyResponseDto.getId();
         this.comment = answerReplyResponseDto.getComment();
-        this.username = answerReplyResponseDto.getUsername();
+        this.username = user.getUsername();
+        this.nickname = user.getNickname();
         this.memeBoard = memeBoard;
         this.user = user;
     }

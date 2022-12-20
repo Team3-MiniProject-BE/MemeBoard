@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnswerReplyResponseDto {
     private Long id;
-    private Long MemeBoardId;
+    private Long memeBoardId;
     private String username;
     private String comment;
 
     public AnswerReplyResponseDto(AnswerReply answerReply) {
         this.id = answerReply.getId();
-        this.MemeBoardId = answerReply.getMemeBoard().getId();
+        this.memeBoardId = answerReply.getMemeBoard().getId();
         this.username = answerReply.getUsername();
         this.comment = answerReply.getComment();
     }
