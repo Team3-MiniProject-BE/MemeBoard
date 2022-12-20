@@ -26,12 +26,12 @@ public class UserService {
     // 회원가입
     @Transactional
     public void signup(SignUpRequestDto signupRequestDto) {
-        String username = signupRequestDto.getUsername();                           // Dto -> entity
-        String password = passwordEncoder.encode(signupRequestDto.getPassword());   // Dto -> entity
+        String username = signupRequestDto.getUsername();
+        String password = passwordEncoder.encode(signupRequestDto.getPassword());
         String nickname = signupRequestDto.getNickname();
         // 회원 중복 확인
-        Optional<User> found = userRepository.findByUsername(username);             // userRepository에서 유저 찾기
-        if (found.isPresent()) {                                                    // 유저가 있을 경우 중복 error
+        Optional<User> found = userRepository.findByUsername(username);
+        if (found.isPresent()) {
             throw new RuntimeException("중복된 아이디가 있습니다.");
         }
 
@@ -54,8 +54,8 @@ public class UserService {
         String password = loginRequestDto.getPassword();
 
         // 사용자 확인
-        User user = userRepository.findByUsername(username).orElseThrow(            // 유저 찾기
-                () -> new RuntimeException("유저가 없습니다")                           // 없을 경우 유저없음 error
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new RuntimeException("유저가 없습니다")
         );
 
         // 비밀번호 확인

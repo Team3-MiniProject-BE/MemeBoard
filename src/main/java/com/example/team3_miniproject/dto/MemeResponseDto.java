@@ -1,5 +1,6 @@
 package com.example.team3_miniproject.dto;
 
+import com.example.team3_miniproject.entity.Attachment;
 import com.example.team3_miniproject.entity.MemeBoard;
 import lombok.Getter;
 
@@ -22,8 +23,7 @@ public class MemeResponseDto {
         this.title = meme.getTitle();
         this.nickname = meme.getNickname();
         this.createdAt = meme.getCreatedAt();
-
-        this.img = meme.getImg();
+        this.img = meme.getAttachedFile();
         this.answerValue = meme.getAnswerValue();
         this.exam1 = meme.getExam1();
         this.exam2 = meme.getExam2();
