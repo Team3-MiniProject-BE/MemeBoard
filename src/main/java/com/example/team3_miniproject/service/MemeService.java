@@ -12,10 +12,14 @@ import com.example.team3_miniproject.s3.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +42,10 @@ public class MemeService {
         return new MemeResponseDto(meme);
     }
 
-    public Page<MemeResponseDto> getMemeList(Pageable pageable) {
-        Page<MemeBoard> memes = memeRepository.findAll(pageable);
-        return memes.map(e -> new MemeResponseDto(e));
+    public List<MemeResponseDto> getMemeList() {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        List<MemeBoard> memes = memeRepository.findAll(sort);
+        return memes.stream().map(MemeResponseDto::new).collect(Collectors.toList());
     }
 
     // 선택 페이지 조회

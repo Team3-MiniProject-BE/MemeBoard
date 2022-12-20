@@ -18,6 +18,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -37,8 +38,8 @@ public class MemeController {
     }
 
     @GetMapping("/api/memes")
-    public Page<MemeResponseDto> getMemeList(@PageableDefault(size = 12) Pageable pageable) {
-        return memeService.getMemeList(pageable);
+    public List<MemeResponseDto> getMemeList() {
+        return memeService.getMemeList();
     }
 
     // 선택 조회 기능
