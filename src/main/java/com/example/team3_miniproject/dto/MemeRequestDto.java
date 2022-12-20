@@ -19,6 +19,7 @@ public class MemeRequestDto {
     private String nickname;
     private String password;
     private String title;
+    private String contents;
     private int answerValue;
     private String exam1;
     private String exam2;
@@ -45,6 +46,7 @@ public class MemeRequestDto {
                 .nickname(user.getNickname())
                 .password(user.getPassword())
                 .title(title)
+                .contents(contents)
                 .answerValue(answerValue)
                 .exam1(exam1)
                 .exam2(exam2)
