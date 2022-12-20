@@ -1,9 +1,6 @@
 package com.example.team3_miniproject.controller;
 
-import com.example.team3_miniproject.dto.AnswerRequestDto;
-import com.example.team3_miniproject.dto.MemeRequestDto;
-import com.example.team3_miniproject.dto.MemeResponseDto;
-import com.example.team3_miniproject.dto.MessageResponseDto;
+import com.example.team3_miniproject.dto.*;
 import com.example.team3_miniproject.s3.S3Uploader;
 import com.example.team3_miniproject.security.UserDetailsImpl;
 import com.example.team3_miniproject.service.MemeService;
@@ -18,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -37,8 +35,8 @@ public class MemeController {
     }
 
     @GetMapping("/api/memes")
-    public Page<MemeResponseDto> getMemeList(@PageableDefault(size = 12) Pageable pageable) {
-        return memeService.getMemeList(pageable);
+    public List<MemeListResponseDto> getMemeList() {
+        return memeService.getMemeList();
     }
 
     // 선택 조회 기능
@@ -50,16 +48,17 @@ public class MemeController {
     }
 
     // 밈 페이지 수정
+    // 작성자 : 김규리
     @PatchMapping(value = "/api/meme/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})         // 파일 첨부 + 게시판 작성을 위한 Madia Type 선언
     public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,                                                           // 게시물 Id 값
                                                          @RequestPart MemeRequestDto requestDto,                                          // Requestpart 어노테이션을 사용해서 requestdto로 데이터를 전달 받음
                                                          @RequestPart("data") MultipartFile multipartFile) throws IOException{            // Requestpart 어노테이션을 사용해서 data로 파일을 전달 받음
     memeService.updateMeme(id, requestDto, multipartFile, "static");                                                              // 게시물 Id, requestDto, 첨부파일, 업로드 디렉토리 명
     return ResponseEntity.ok(new MessageResponseDto("수정 성공",HttpStatus.OK));
-
     }
     
     // 밈 사진 업로드 API
+    // 작성자 : 김규리
     @PostMapping("/api/upload")
     @ResponseBody
     public ResponseEntity<MessageResponseDto> uploadImage(@RequestParam("data") MultipartFile multipartFile) throws IOException {

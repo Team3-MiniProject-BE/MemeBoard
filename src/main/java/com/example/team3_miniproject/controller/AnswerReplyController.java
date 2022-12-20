@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +22,23 @@ public class AnswerReplyController {
                                                              @PathVariable Long id,
                                                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
         answerReplyService.addAnswerReply(answerReplyResponseDto, id ,userDetails.getUser());
-//        return answerReplyService.addAnswerReply(answerReplyResponseDto, id, userDetails.getUser());
-        return ResponseEntity.ok(new MessageResponseDto("수정 성공", HttpStatus.OK));
+        return ResponseEntity.ok(new MessageResponseDto("댓글 추가 성공", HttpStatus.OK));
+    }
+
+    // 댓글 수정
+    @PatchMapping("/api/memecomment/{id}")
+    public ResponseEntity<MessageResponseDto> updateComment(@PathVariable Long id,
+                                    @RequestBody AnswerReplyResponseDto answerReplyResponseDto,
+                                    @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        answerReplyService.updateAnswerReply(id, answerReplyResponseDto, userDetails.getUser());
+        return ResponseEntity.ok(new MessageResponseDto("댓글 수정 성공", HttpStatus.OK));
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/api/memecomment/{id}")
+    public ResponseEntity<MessageResponseDto> deleteComment(@PathVariable Long id,
+                                                        @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        answerReplyService.deleteAnswerReply(id, userDetails.getUser());
+        return ResponseEntity.ok(new MessageResponseDto("댓글 삭제 성공", HttpStatus.OK));
     }
 }
