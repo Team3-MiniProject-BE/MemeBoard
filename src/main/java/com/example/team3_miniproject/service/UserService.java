@@ -4,6 +4,8 @@ import com.example.team3_miniproject.dto.LoginRequestDto;
 import com.example.team3_miniproject.dto.SignUpRequestDto;
 import com.example.team3_miniproject.entity.User;
 import com.example.team3_miniproject.entity.UserRoleEnum;
+import com.example.team3_miniproject.exception.ErrorCode;
+import com.example.team3_miniproject.exception.RequestException;
 import com.example.team3_miniproject.jwt.JwtUtil;
 import com.example.team3_miniproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,7 @@ public class UserService {
         // 회원 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
-            throw new RuntimeException("중복된 아이디가 있습니다.");
+            throw new RequestException(ErrorCode.CONFLICT_ACCOUNT_409);                         // 중복된 아이디가 있습니다.
         }
 
         // 사용자 ROLE 확인
@@ -55,12 +57,12 @@ public class UserService {
 
         // 사용자 확인
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new RuntimeException("유저가 없습니다")
+                () -> new RequestException(ErrorCode.NULL_USER_400)                     // 유저가 없습니다.
         );
 
         // 비밀번호 확인
         if(!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("비밀번호가 일치하지 않습니다");
+            throw new RequestException(ErrorCode.NON_MATCHING_PASSWORD_400);            // 비밀번호가 일치하지 않습니다
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));

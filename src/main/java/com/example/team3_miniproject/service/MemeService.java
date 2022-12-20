@@ -5,6 +5,8 @@ import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.entity.User;
+import com.example.team3_miniproject.exception.ErrorCode;
+import com.example.team3_miniproject.exception.RequestException;
 import com.example.team3_miniproject.repository.AnswerRepository;
 import com.example.team3_miniproject.repository.MemeRepository;
 import com.example.team3_miniproject.repository.UserRepository;
@@ -52,7 +54,7 @@ public class MemeService {
     // 작성자 : 김규리
     public MemeResponseDto getMemos(Long id) {
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("확인할 게시글이 없습니다.")
+                () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                  // 확인할 게시글이 없습니다.
         );
         return new MemeResponseDto(memeBoard);
     }
@@ -62,7 +64,7 @@ public class MemeService {
     public MemeResponseDto updateMeme(Long id, MemeRequestDto memeRequestDto, MultipartFile multipartFile, String dirName ) throws IOException {
         // id와 일치하는 게시글 유무
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("수정할 밈 게시글이 없습니다.")
+                () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                   // 수정할 밈 게시글이 없습니다.
         );
 
         String attachedFiles = s3Uploader.upload(multipartFile, dirName);
@@ -75,7 +77,7 @@ public class MemeService {
             answerRepository.deleteByMemeBoard(memeBoard);
             return new MemeResponseDto(memeBoard);
         } else {
-            throw new RuntimeException("게시글 작성자가 아닙니다");
+            throw new RequestException(ErrorCode.NULL_USER_ACCESS_403);                      // 게시글 작성자가 아닙니다.
         }
     }
 
@@ -83,14 +85,14 @@ public class MemeService {
     public MemeResponseDto incollectAnswer(Long id, AnswerRequestDto request){
 
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("게시물이 존재하지 않습니다.")
+                () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                   // 게시물이 존재하지 않습니다.
         );
 
         if (memeBoard.getAnswerValue() == request.getAnswerValue()){
             memeBoard.statusUpdate(true);
             return new MemeResponseDto(memeBoard);
         } else {
-            throw new RuntimeException("정답이 아닙니다!");
+            throw new RequestException(ErrorCode.FALSE_ANSWER_405);                         // 정답이 아닙니다.
         }
     }
 
@@ -104,13 +106,13 @@ public class MemeService {
 
     private User checkUserExists(UserRepository userRepository, User user) {
         return userRepository.findByUsername(user.getUsername()).orElseThrow(
-                () -> new RuntimeException("계정 정보가 없습니다.")
+                () -> new RequestException(ErrorCode.NULL_ACCOUNT_400)                  // 계정 정보가 없습니다
         );
     }
 
     private MemeBoard checkMemeBoardExists(MemeRepository memeRepository, Long id) {
         return memeRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("게시글이 존재하지 않습니다.")
+                () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)               // 게시글이 없습니다
         );
     }
 }
