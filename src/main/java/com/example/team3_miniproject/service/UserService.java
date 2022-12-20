@@ -65,4 +65,15 @@ public class UserService {
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
     }
+
+    public boolean checkUserNameDuplicate(String username){
+        return userRepository.existsByUsername(username);               // Username이 중복되는 경우 true, 중복되지 않은 경우 False
+    }
+
+    public boolean checkNickNameDuplicate(String nickname){
+        return userRepository.existsByNickname(nickname);               // Username이 중복되는 경우 true, 중복되지 않은 경우 False
+    }
+
+
+
 }
