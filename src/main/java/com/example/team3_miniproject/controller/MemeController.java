@@ -51,6 +51,7 @@ public class MemeController {
     }
 
     // 밈 페이지 수정
+    // 작성자 : 김규리
     @PatchMapping(value = "/api/meme/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})         // 파일 첨부 + 게시판 작성을 위한 Madia Type 선언
     public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,                                                           // 게시물 Id 값
                                                          @RequestPart MemeRequestDto requestDto,                                          // Requestpart 어노테이션을 사용해서 requestdto로 데이터를 전달 받음
@@ -60,6 +61,7 @@ public class MemeController {
     }
     
     // 밈 사진 업로드 API
+    // 작성자 : 김규리
     @PostMapping("/api/upload")
     @ResponseBody
     public ResponseEntity<MessageResponseDto> uploadImage(@RequestParam("data") MultipartFile multipartFile) throws IOException {
@@ -75,10 +77,10 @@ public class MemeController {
     }
 
     // 밈 퀴즈 정답 확인 API
+    // 작성자 : 김규리
     @PatchMapping("/api/memeanswer/{Id}")
     public ResponseEntity<MessageResponseDto> incollectAnswer(@PathVariable Long Id, @RequestBody AnswerRequestDto request){
         MemeResponseDto memeResponseDto = memeService.incollectAnswer(Id, request);
         return ResponseEntity.ok(new MessageResponseDto("정답입니다! 댓글을 확인해보세요",HttpStatus.OK, memeResponseDto));
-
     }
 }
