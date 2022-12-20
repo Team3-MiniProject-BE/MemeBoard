@@ -1,15 +1,12 @@
 package com.example.team3_miniproject.service;
 
 import com.example.team3_miniproject.dto.AnswerReplyResponseDto;
-import com.example.team3_miniproject.dto.MessageResponseDto;
 import com.example.team3_miniproject.entity.AnswerReply;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.entity.User;
 import com.example.team3_miniproject.repository.AnswerReplyRepository;
 import com.example.team3_miniproject.repository.MemeRepository;
 import lombok.RequiredArgsConstructor;
-import org.h2.api.ErrorCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
