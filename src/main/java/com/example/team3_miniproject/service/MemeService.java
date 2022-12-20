@@ -1,5 +1,6 @@
 package com.example.team3_miniproject.service;
 
+import com.example.team3_miniproject.dto.AnswerRequestDto;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.entity.MemeBoard;
@@ -30,9 +31,10 @@ public class MemeService {
     // 작성자 : 박소연, 수정자 : 김규리(12/20)
     public MemeResponseDto saveMeme(MemeRequestDto requestDto, User user, MultipartFile multipartFile, String dirName ) throws IOException {
         MemeBoard meme;
+
         checkUserExists(userRepository, user);
-        String attachedFiles = s3Uploader.upload(multipartFile, dirName);           // 사진 업로드 (s3 Uploader)
-        meme = memeRepository.save(requestDto.toEntity(attachedFiles));             // 업로드 파일 경로 + RequestDto를 DB에 저장
+        String attachedFiles = s3Uploader.upload(multipartFile, dirName);                 // 사진 업로드 (s3 Uploader)
+        meme = memeRepository.save(requestDto.toEntity(attachedFiles, user));             // 업로드 파일 경로 + RequestDto(+User) DB에 저장
         return new MemeResponseDto(meme);
     }
 
@@ -69,6 +71,21 @@ public class MemeService {
             return new MemeResponseDto(memeBoard);
         } else {
             throw new RuntimeException("게시글 작성자가 아닙니다");
+        }
+    }
+
+    @Transactional
+    public MemeResponseDto incollectAnswer(Long id, AnswerRequestDto request){
+
+        MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("게시물이 존재하지 않습니다.")
+        );
+
+        if (memeBoard.getAnswerValue() == request.getAnswerValue()){
+            memeBoard.statusUpdate(true);
+            return new MemeResponseDto(memeBoard);
+        } else {
+            throw new RuntimeException("정답이 아닙니다!");
         }
     }
 

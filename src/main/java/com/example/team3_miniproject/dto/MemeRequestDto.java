@@ -2,6 +2,7 @@ package com.example.team3_miniproject.dto;
 
 import com.example.team3_miniproject.entity.Attachment;
 import com.example.team3_miniproject.entity.MemeBoard;
+import com.example.team3_miniproject.entity.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,11 +39,11 @@ public class MemeRequestDto {
                 .build();
     }
 
-    public MemeBoard toEntity(String attachedFiles) {
+    public MemeBoard toEntity(String attachedFiles, User user) {
         return MemeBoard.builder()
-                .username(username)
-                .nickname(nickname)
-                .password(password)
+                .username(user.getUsername())
+                .nickname(user.getNickname())
+                .password(user.getPassword())
                 .title(title)
                 .answerValue(answerValue)
                 .exam1(exam1)

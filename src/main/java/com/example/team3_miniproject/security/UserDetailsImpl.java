@@ -2,6 +2,7 @@ package com.example.team3_miniproject.security;
 
 import com.example.team3_miniproject.entity.User;
 import com.example.team3_miniproject.entity.UserRoleEnum;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,18 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Getter
 public class UserDetailsImpl implements UserDetails {
-
     private final User user;
     private final String username;
 
+    // @RequiredArgsConstructor 역할 하는 생성자
     public UserDetailsImpl(User user, String username) {
         this.user = user;
         this.username = username;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     @Override
@@ -36,12 +34,12 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return this.username;
+    public String getPassword() {
+        return null;
     }
 
     @Override
-    public String getPassword() {
+    public String getUsername() {
         return null;
     }
 
