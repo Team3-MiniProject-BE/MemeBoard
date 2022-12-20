@@ -1,9 +1,6 @@
 package com.example.team3_miniproject.controller;
 
-import com.example.team3_miniproject.dto.AnswerRequestDto;
-import com.example.team3_miniproject.dto.MemeRequestDto;
-import com.example.team3_miniproject.dto.MemeResponseDto;
-import com.example.team3_miniproject.dto.MessageResponseDto;
+import com.example.team3_miniproject.dto.*;
 import com.example.team3_miniproject.s3.S3Uploader;
 import com.example.team3_miniproject.security.UserDetailsImpl;
 import com.example.team3_miniproject.service.MemeService;
@@ -38,7 +35,7 @@ public class MemeController {
     }
 
     @GetMapping("/api/memes")
-    public List<MemeResponseDto> getMemeList() {
+    public List<MemeListResponseDto> getMemeList() {
         return memeService.getMemeList();
     }
 
