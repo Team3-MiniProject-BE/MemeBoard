@@ -45,8 +45,9 @@ public class MemeController {
     // 선택 조회 기능
     // 작성자 : 김규리
     @GetMapping("/api/memes/{id}")
-    public MemeResponseDto getMemos(@PathVariable Long id) {
-        MemeResponseDto memeResponseDto = memeService.getMemos(id);
+    public MemeResponseDto getMemos(@PathVariable Long id,
+                                    @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        MemeResponseDto memeResponseDto = memeService.getMemos(id, userDetails.getUser());
         return memeResponseDto;
     }
 

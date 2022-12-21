@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -56,11 +57,17 @@ public class MemeService {
 
     // 선택 페이지 조회
     // 작성자 : 김규리
-    public MemeResponseDto getMemos(Long id) {
+    public MemeResponseDto getMemos(Long id, User user) {
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                  // 확인할 게시글이 없습니다.
         );
-        return new MemeResponseDto(memeBoard);
+        Optional<Answer> answer = answerRepository.findByUserIdAndMemeBoardId(user.getId(), id);
+
+        if (answer.isEmpty()){
+            return new MemeResponseDto(memeBoard,false);
+        }else {
+            return new MemeResponseDto(memeBoard, true);
+        }
     }
 
     // 밈 게시글 수정
@@ -92,11 +99,8 @@ public class MemeService {
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                   // 게시물이 존재하지 않습니다.
         );
 
-        Answer answer;
-
         if (memeBoard.getAnswerValue() == request.getAnswerValue()){
-//            answer = answerRepository.save();
-            memeBoard.statusUpdate(true);
+            answerRepository.save(request.toEntity(user, memeBoard));
             return new MemeResponseDto(memeBoard);
         } else {
             throw new RequestException(ErrorCode.FALSE_ANSWER_405);                         // 정답이 아닙니다.

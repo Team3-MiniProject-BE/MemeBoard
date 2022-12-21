@@ -23,13 +23,29 @@ public class MemeResponseDto {
     private String exam1;
     private String exam2;
     private String exam3;
-    private boolean IsCorrect;
+    private boolean isCorrect;
     private List<AnswerReply> answerReplyList;
 
 
     public MemeResponseDto(MemeBoard meme) {
         this.id = meme.getId();
-        this.IsCorrect = meme.isIsCorrect();
+        this.isCorrect = meme.isIsCorrect();
+        this.title = meme.getTitle();
+        this.contents = meme.getContents();
+        this.username = meme.getUsername();
+        this.nickname = meme.getNickname();
+        this.createdAt = meme.getCreatedAt();
+        this.img = meme.getAttachedFile();
+        this.answerValue = meme.getAnswerValue();
+        this.exam1 = meme.getExam1();
+        this.exam2 = meme.getExam2();
+        this.exam3 = meme.getExam3();
+        this.answerReplyList = meme.getAnswerReplyList();
+    }
+
+    public MemeResponseDto(MemeBoard meme, boolean isCorrect) {
+        this.id = meme.getId();
+        this.isCorrect = isCorrect;
         this.title = meme.getTitle();
         this.contents = meme.getContents();
         this.username = meme.getUsername();

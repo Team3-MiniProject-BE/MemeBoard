@@ -1,5 +1,7 @@
 package com.example.team3_miniproject.entity;
 
+import com.example.team3_miniproject.dto.MemeRequestDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +16,9 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private int answerValue;
+
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
@@ -22,7 +27,9 @@ public class Answer {
     @JoinColumn(name = "MEMEBOARD_ID", nullable = false)
     private MemeBoard memeBoard;
 
-    public Answer(User user, MemeBoard memeBoard){
+    @Builder
+    public Answer(int answerValue, User user, MemeBoard memeBoard){
+        this.answerValue = answerValue;
         this.user = user;
         this.memeBoard = memeBoard;
     }

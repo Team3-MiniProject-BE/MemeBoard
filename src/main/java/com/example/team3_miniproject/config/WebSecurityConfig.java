@@ -93,7 +93,7 @@ public class WebSecurityConfig  implements WebMvcConfigurer {
                 .authorizeRequests()                                                                                    //요청에 대한 사용권한에 대해서 체크함
                 .antMatchers("/api/signup**").permitAll()                                                    // 회원가입/ 로그인 Url은 권한을 전체 허용
                 .antMatchers("/api/login**").permitAll()
-                .antMatchers(HttpMethod.GET, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/memes").permitAll()
                 .anyRequest().authenticated()// 그 외 요청은 authentication이라는 객체가 Security Context에 있는지 확인함
                 .and()
                 .cors()
