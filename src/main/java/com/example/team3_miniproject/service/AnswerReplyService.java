@@ -1,6 +1,8 @@
 package com.example.team3_miniproject.service;
 
+import com.example.team3_miniproject.dto.AnswerReplyListResponseDto;
 import com.example.team3_miniproject.dto.AnswerReplyResponseDto;
+import com.example.team3_miniproject.dto.MemeListResponseDto;
 import com.example.team3_miniproject.entity.AnswerReply;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.entity.User;
@@ -9,8 +11,13 @@ import com.example.team3_miniproject.exception.RequestException;
 import com.example.team3_miniproject.repository.AnswerReplyRepository;
 import com.example.team3_miniproject.repository.MemeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +48,7 @@ public class AnswerReplyService {
         if (answerReply.getUsername().equals(user.getUsername())) {
             answerReply.update(answerReplyResponseDto);
             return new AnswerReplyResponseDto((answerReply));
-        }else {
+        } else {
             throw new RequestException(ErrorCode.NULL_ACCOUNT_400);
         }
     }
@@ -55,8 +62,22 @@ public class AnswerReplyService {
         if (answerReply.getUsername().equals(user.getUsername())) {
             answerReplyRepository.delete(answerReply);
             return new AnswerReplyResponseDto((answerReply));
-        }else {
+        } else {
             throw new RequestException(ErrorCode.NULL_ACCOUNT_400);
         }
+    }
+
+    // 댓글 리스트 조회
+    public List<AnswerReplyListResponseDto> getMemeCommentList(Long id, User user) {
+        List<AnswerReply> replyList = answerReplyRepository.findAllByMemeBoardId(id);
+        List<AnswerReplyListResponseDto> memoCommentList = new ArrayList<>();
+
+        for (int i = 0; i < replyList.size(); i++) {
+            if (replyList.get(i).getUser().getId() == user.getId()) {
+                memoCommentList.add(new AnswerReplyListResponseDto(replyList.get(i), true));
+            } else {
+                memoCommentList.add(new AnswerReplyListResponseDto(replyList.get(i), false));
+            }
+        } return memoCommentList;
     }
 }

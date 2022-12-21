@@ -1,33 +1,30 @@
 package com.example.team3_miniproject.dto;
 
 import com.example.team3_miniproject.entity.AnswerReply;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.example.team3_miniproject.entity.MemeBoard;
+import com.example.team3_miniproject.entity.User;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class AnswerReplyResponseDto {
+public class AnswerReplyListResponseDto {
     private Long id;
     private Long memeBoardId;
-    private String username;
+    private Long userId;
     private String comment;
     private boolean iscorrect;
 
-    public AnswerReplyResponseDto(AnswerReply answerReply) {
+    public AnswerReplyListResponseDto(AnswerReply answerReply){
         this.id = answerReply.getId();
         this.memeBoardId = answerReply.getMemeBoard().getId();
-        this.username = answerReply.getUsername();
+        this.userId = answerReply.getUser().getId();
         this.comment = answerReply.getComment();
+        this.iscorrect = iscorrect;
     }
 
-    public AnswerReplyResponseDto(AnswerReply answerReply, boolean iscorrect) {
+    public AnswerReplyListResponseDto(AnswerReply answerReply, boolean iscorrect){
         this.id = answerReply.getId();
         this.memeBoardId = answerReply.getMemeBoard().getId();
-        this.username = answerReply.getUsername();
+        this.userId = answerReply.getUser().getId();
         this.comment = answerReply.getComment();
         this.iscorrect = iscorrect;
     }

@@ -5,6 +5,7 @@ import com.example.team3_miniproject.dto.MemeListResponseDto;
 import com.example.team3_miniproject.dto.MemeRequestDto;
 import com.example.team3_miniproject.dto.MemeResponseDto;
 import com.example.team3_miniproject.entity.Answer;
+import com.example.team3_miniproject.entity.AnswerReply;
 import com.example.team3_miniproject.entity.MemeBoard;
 import com.example.team3_miniproject.entity.User;
 import com.example.team3_miniproject.repository.AnswerReplyRepository;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,6 +63,7 @@ public class MemeService {
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                  // 확인할 게시글이 없습니다.
         );
+
         Optional<Answer> answer = answerRepository.findByUserIdAndMemeBoardId(user.getId(), id);
 
         if (answer.isEmpty()){

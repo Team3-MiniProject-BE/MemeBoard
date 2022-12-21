@@ -1,8 +1,6 @@
 package com.example.team3_miniproject.controller;
 
-import com.example.team3_miniproject.dto.AnswerReplyRequestDto;
-import com.example.team3_miniproject.dto.AnswerReplyResponseDto;
-import com.example.team3_miniproject.dto.MessageResponseDto;
+import com.example.team3_miniproject.dto.*;
 import com.example.team3_miniproject.security.UserDetailsImpl;
 import com.example.team3_miniproject.service.AnswerReplyService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,5 +40,11 @@ public class AnswerReplyController {
                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
         answerReplyService.deleteAnswerReply(id, userDetails.getUser());
         return ResponseEntity.ok(new MessageResponseDto("댓글 삭제 성공", HttpStatus.OK));
+    }
+
+    @GetMapping("/api/memecommentlist/{id}")
+    public List<AnswerReplyListResponseDto> getMemeList(@PathVariable Long id,
+                                                        @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return answerReplyService.getMemeCommentList(id, userDetails.getUser());
     }
 }

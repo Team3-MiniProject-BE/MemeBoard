@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AnswerReplyRepository extends JpaRepository<AnswerReply, Long> {
 
-    List<AnswerReply> findAllByMemeBoard(MemeBoard memeBoard);
+    List<AnswerReply> findAllByMemeBoardId(Long id);
 }

@@ -26,6 +26,8 @@ public class MemeResponseDto {
     private boolean isCorrect;
     private List<AnswerReply> answerReplyList;
 
+    private List<Long> correctReplyIdList;
+
 
     public MemeResponseDto(MemeBoard meme) {
         this.id = meme.getId();
