@@ -63,13 +63,22 @@ public class MemeService {
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                  // 확인할 게시글이 없습니다.
         );
-
+        boolean checkUserid = false;
         Optional<Answer> answer = answerRepository.findByUserIdAndMemeBoardId(user.getId(), id);
 
-        if (answer.isEmpty()){
-            return new MemeResponseDto(memeBoard,false);
-        }else {
-            return new MemeResponseDto(memeBoard, true);
+        if (memeBoard.getUsername().equals(user.getUsername())) {
+            checkUserid = true;
+            if (answer.isEmpty()) {
+                return new MemeResponseDto(memeBoard, false, checkUserid);
+            } else {
+                return new MemeResponseDto(memeBoard, true, checkUserid);
+            }
+        } else {
+            if (answer.isEmpty()) {
+                return new MemeResponseDto(memeBoard, false, checkUserid);
+            } else {
+                return new MemeResponseDto(memeBoard, true, checkUserid);
+            }
         }
     }
 

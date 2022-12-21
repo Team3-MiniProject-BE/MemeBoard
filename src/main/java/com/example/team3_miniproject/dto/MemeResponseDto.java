@@ -24,6 +24,7 @@ public class MemeResponseDto {
     private String exam2;
     private String exam3;
     private boolean isCorrect;
+    private boolean boardUser;
     private List<AnswerReply> answerReplyList;
 
     private List<Long> correctReplyIdList;
@@ -45,7 +46,7 @@ public class MemeResponseDto {
         this.answerReplyList = meme.getAnswerReplyList();
     }
 
-    public MemeResponseDto(MemeBoard meme, boolean isCorrect) {
+    public MemeResponseDto(MemeBoard meme, boolean isCorrect, boolean boardUser) {
         this.id = meme.getId();
         this.isCorrect = isCorrect;
         this.title = meme.getTitle();
@@ -59,5 +60,7 @@ public class MemeResponseDto {
         this.exam2 = meme.getExam2();
         this.exam3 = meme.getExam3();
         this.answerReplyList = meme.getAnswerReplyList();
+        this.boardUser = boardUser;
     }
+
 }
