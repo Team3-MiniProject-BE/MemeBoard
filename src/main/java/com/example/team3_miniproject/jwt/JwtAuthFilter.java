@@ -23,6 +23,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
+    private final ObjectMapper om;
+
     // 필터는 체인형식으로 연결되어있음 필터체인을 사용하면서 필터끼리 이동한다
 
     @Override
@@ -54,7 +56,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         response.setStatus(statusCode);
         response.setContentType("application/json");
         try {
-            String json = new ObjectMapper().writeValueAsString(new SecurityExceptionDto(statusCode, msg));
+            String json = om.writeValueAsString(new SecurityExceptionDto(statusCode, msg));
             response.getWriter().write(json);
         } catch (Exception e) {
             log.error(e.getMessage());

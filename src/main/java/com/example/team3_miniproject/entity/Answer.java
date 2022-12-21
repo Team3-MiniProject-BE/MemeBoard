@@ -21,4 +21,9 @@ public class Answer {
     @OneToOne
     @JoinColumn(name = "MEMEBOARD_ID", nullable = false)
     private MemeBoard memeBoard;
+
+    public Answer(User user, MemeBoard memeBoard){
+        this.user = user;
+        this.memeBoard = memeBoard;
+    }
 }

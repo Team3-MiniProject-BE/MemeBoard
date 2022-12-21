@@ -72,6 +72,7 @@ public class MemeBoard extends Timestamped{
 
     public void update(MemeRequestDto memeRequestDto, String attachedFile) {
         this.title = memeRequestDto.getTitle();
+        this.contents = memeRequestDto.getContents();
         this.answerValue = memeRequestDto.getAnswerValue();
         this.exam1 = memeRequestDto.getExam1();
         this.exam2 = memeRequestDto.getExam2();

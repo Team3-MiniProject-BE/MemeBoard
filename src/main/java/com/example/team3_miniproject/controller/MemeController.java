@@ -30,7 +30,10 @@ public class MemeController {
     public ResponseEntity<MessageResponseDto> saveMeme(@RequestPart MemeRequestDto requestDto,                                            // Requestpart 어노테이션을 사용해서 requestdto로 데이터를 전달 받음
                                                        @RequestPart("data") MultipartFile multipartFile,                                  // Requestpart 어노테이션을 사용해서 data로 파일을 전달 받음
                                                        @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {         // spring Security를 통한 유저 정보 전달
-        memeService.saveMeme(requestDto, userDetails.getUser(), multipartFile, "static");                                         // RequestDto, User정보,  첨부파일, 업로드 디렉토리 명
+        System.out.println("작성 api 컨트롤러 시작");
+        System.out.println("dto"+requestDto+"file"+multipartFile);
+        memeService.saveMeme(requestDto, userDetails.getUser(), multipartFile, "static"); // RequestDto, User정보,  첨부파일, 업로드 디렉토리 명
+        System.out.println("작성 api 컨트롤러 종료 후 리턴값 전달");
         return ResponseEntity.ok(new MessageResponseDto("등록 완료", HttpStatus.OK));
     }
 
@@ -52,8 +55,9 @@ public class MemeController {
     @PatchMapping(value = "/api/meme/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})         // 파일 첨부 + 게시판 작성을 위한 Madia Type 선언
     public ResponseEntity<MessageResponseDto> updateMeme(@PathVariable Long id,                                                           // 게시물 Id 값
                                                          @RequestPart MemeRequestDto requestDto,                                          // Requestpart 어노테이션을 사용해서 requestdto로 데이터를 전달 받음
-                                                         @RequestPart("data") MultipartFile multipartFile) throws IOException{            // Requestpart 어노테이션을 사용해서 data로 파일을 전달 받음
-    memeService.updateMeme(id, requestDto, multipartFile, "static");                                                              // 게시물 Id, requestDto, 첨부파일, 업로드 디렉토리 명
+                                                         @RequestPart("data") MultipartFile multipartFile,
+                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException{            // Requestpart 어노테이션을 사용해서 data로 파일을 전달 받음
+        memeService.updateMeme(id, requestDto, multipartFile, "static", userDetails.getUser());                                                       // 게시물 Id, requestDto, 첨부파일, 업로드 디렉토리 명
     return ResponseEntity.ok(new MessageResponseDto("수정 성공",HttpStatus.OK));
     }
     
@@ -75,9 +79,11 @@ public class MemeController {
 
     // 밈 퀴즈 정답 확인 API
     // 작성자 : 김규리
-    @PatchMapping("/api/memeanswer/{Id}")
-    public ResponseEntity<MessageResponseDto> incollectAnswer(@PathVariable Long Id, @RequestBody AnswerRequestDto request){
-        MemeResponseDto memeResponseDto = memeService.incollectAnswer(Id, request);
+    @PostMapping("/api/memeanswer/{Id}")
+    public ResponseEntity<MessageResponseDto> incollectAnswer(@PathVariable Long Id,
+                                                              @RequestBody AnswerRequestDto request,
+                                                              @AuthenticationPrincipal UserDetailsImpl userDetails){
+        MemeResponseDto memeResponseDto = memeService.incollectAnswer(Id, request, userDetails.getUser());
         return ResponseEntity.ok(new MessageResponseDto("정답입니다! 댓글을 확인해보세요",HttpStatus.OK, memeResponseDto));
     }
 }
