@@ -1,5 +1,5 @@
 ### MiniProject Team 3 
-# 어제 내 어쩌구 무너졌어 ! 🎮
+# 어제 내 어쩌구가 무너졌어 ! 🎮 🧨
 
 ## 프로젝트 소개 📢
 ![image](https://user-images.githubusercontent.com/117708164/209110126-6d840820-3771-4686-a489-4badb7743bd8.png)
@@ -8,17 +8,15 @@
 - 내가 문제로 내고 싶은 밈을 업로드하고, 정답을 맞춰보세요 ! 🔔
 - 정답을 맞추면 댓글을 달고 다른 유저랑 소통 할 수 있어요 💬
 
+##
+
 ## 프로젝트 기간 / 팀원 소개 📆
  2022.12.16 ~ 2022.12.22 <br>
  FE | 이정민, 이민규 <br>
  BE | 김규리, 박소연, 이상훈 <br>
-
-## 시연 영상 🎥
-https://www.youtube.com/watch?v=n45W_3THrZg
-
-## 와이어 프레임 🖼
-![image](https://user-images.githubusercontent.com/117708164/209112407-ccb8c530-f4e6-4a92-97c0-0520a5510d22.png)
-
+ 
+##
+ 
 ## 기술 스택
 <div align=center> 
 <img src="https://img.shields.io/badge/java-02569B?style=for-the-badge&logo=java&logoColor=white">
@@ -34,12 +32,21 @@ https://www.youtube.com/watch?v=n45W_3THrZg
 <img src="https://img.shields.io/badge/redux-E34F26?style=for-the-badge&logo=redux&logoColor=white"> 
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/mui-DD0031?style=for-the-badge&logo=mui&logoColor=white">
-<img src="https://img.shields.io/badge/reduxjs-1572B6?style=for-the-badge&logo=reduxjs&logoColor=white"> 
+<img src="https://img.shields.io/badge/reduxjs/toolkit-1572B6?style=for-the-badge&logo=reduxjs&logoColor=white"> 
 <img src="https://img.shields.io/badge/axios-FCC624?style=for-the-badge&logo=axios&logoColor=black"> 
 <img src="https://img.shields.io/badge/styled components-000000?style=for-the-badge&logo=styled-components&logoColor=white">
 
 <br>
 </div>
+
+## 시연 영상 🎥
+https://www.youtube.com/watch?v=n45W_3THrZg
+
+##
+
+## 와이어 프레임 🖼
+![image](https://user-images.githubusercontent.com/117708164/209112407-ccb8c530-f4e6-4a92-97c0-0520a5510d22.png)
+##
 
 ## 핵심 기능 👾
 1. 회원가입<br>
@@ -70,4 +77,4 @@ https://www.youtube.com/watch?v=n45W_3THrZg
 ![image](https://user-images.githubusercontent.com/117708164/209114530-0c351acc-9972-4eee-997c-0210f8e13937.png)
 
 
-### 작성자 : 
+Writer : kyuu 
