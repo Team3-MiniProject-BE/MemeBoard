@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 @NoArgsConstructor
 public class MessageResponseDto {
-    private String msg;
-    private HttpStatus statusCode;
-    private MemeResponseDto memeResponseDto;
+    private String msg;                 // 상태 Msg
+    private HttpStatus statusCode;      // 상태 Code
+    private MemeResponseDto memeResponseDto;    // ResponseDto
 
 
     public MessageResponseDto(String msg, HttpStatus statusCode) {

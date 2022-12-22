@@ -18,16 +18,16 @@ public class AnswerReply {
     @Id
     @Column(name = "REPLY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;                                        // 댓글 Id
 
     @Column(nullable = false)
-    private String username;
+    private String username;                                // 사용자 Id
 
     @Column(nullable = false)
-    private String nickname;
+    private String nickname;                                // 닉네임
 
     @Column(nullable = false)
-    private String comment;
+    private String comment;                                 // 댓글 내용
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

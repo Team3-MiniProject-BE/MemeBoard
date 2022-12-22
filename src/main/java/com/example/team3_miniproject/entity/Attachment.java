@@ -17,8 +17,8 @@ public class Attachment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String originFilename;
-    private String storeFilename;
+    private String originFilename;              // 업로드 파일 명
+    private String storeFilename;               // S3 파일 업로드 경로
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

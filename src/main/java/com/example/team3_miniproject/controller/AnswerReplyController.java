@@ -42,6 +42,7 @@ public class AnswerReplyController {
         return ResponseEntity.ok(new MessageResponseDto("댓글 삭제 성공", HttpStatus.OK));
     }
 
+    // 댓글 리스트 조회 (댓글 작성자, 로그인 사용자 일치 여부 체크)
     @GetMapping("/api/memecommentlist/{id}")
     public List<AnswerReplyListResponseDto> getMemeList(@PathVariable Long id,
                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {

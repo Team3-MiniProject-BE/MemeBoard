@@ -67,16 +67,16 @@ public class AnswerReplyService {
         }
     }
 
-    // 댓글 리스트 조회
+    // 댓글 리스트 조회 ( 작성자, 접속 사용자 일치 여부 판단 기능 )
     public List<AnswerReplyListResponseDto> getMemeCommentList(Long id, User user) {
-        List<AnswerReply> replyList = answerReplyRepository.findAllByMemeBoardId(id);
+        List<AnswerReply> replyList = answerReplyRepository.findAllByMemeBoardId(id);               // answerReply Repository에서 입력받은 Id와 일치하는 내용 검색
         List<AnswerReplyListResponseDto> memoCommentList = new ArrayList<>();
 
         for (int i = 0; i < replyList.size(); i++) {
-            if (replyList.get(i).getUser().getId() == user.getId()) {
-                memoCommentList.add(new AnswerReplyListResponseDto(replyList.get(i), true));
+            if (replyList.get(i).getUser().getId() == user.getId()) {                               // 댓글의 작성자 이름과, JWT Token에서 받아온 사용자 정보가 일치하면
+                memoCommentList.add(new AnswerReplyListResponseDto(replyList.get(i), true));    // iscorrect True로 반환
             } else {
-                memoCommentList.add(new AnswerReplyListResponseDto(replyList.get(i), false));
+                memoCommentList.add(new AnswerReplyListResponseDto(replyList.get(i), false));   // Iscorrect False로 반환
             }
         } return memoCommentList;
     }

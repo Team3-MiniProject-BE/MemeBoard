@@ -14,18 +14,18 @@ public class Answer {
     @Id
     @Column(name = "ANSWER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;                                            // 정답 Id
 
     @Column(nullable = false)
-    private int answerValue;
+    private int answerValue;                                    // 정답 값
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
-    private User user;
+    private User user;                                          // 사용자 정보
 
     @OneToOne
     @JoinColumn(name = "MEMEBOARD_ID", nullable = false)
-    private MemeBoard memeBoard;
+    private MemeBoard memeBoard;                                // 게시물 정보
 
     @Builder
     public Answer(int answerValue, User user, MemeBoard memeBoard){

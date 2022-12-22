@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AnswerRequestDto {
 
-    private int answerValue;
+    private int answerValue;                // 정답 번호
 
-    private MemeBoard memeBoard;
+    private MemeBoard memeBoard;            // 게시판 번호
 
-    private User user;
+    private User user;                      // 사용자 정보
 
     public Answer toEntity(User user, MemeBoard memeBoard) {
         return Answer.builder()

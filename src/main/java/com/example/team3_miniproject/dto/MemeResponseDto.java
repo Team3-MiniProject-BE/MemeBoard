@@ -11,23 +11,20 @@ import java.util.List;
 
 @Getter
 public class MemeResponseDto {
-    private Long id;
-    private String title;
-
-    private String contents;
-    private String username;
-    private String nickname;
-    private LocalDateTime createdAt;
-    private String img;
-    private int answerValue;
-    private String exam1;
-    private String exam2;
-    private String exam3;
-    private boolean isCorrect;
-    private boolean boardUser;
-    private List<AnswerReply> answerReplyList;
-
-    private List<Long> correctReplyIdList;
+    private Long id;                // 게시물 Id
+    private String title;           // 게시물 제목
+    private String contents;        // 게시물 내용
+    private String username;        // 작성자 Id
+    private String nickname;        // 작성자 닉네임
+    private LocalDateTime createdAt;    // 생성일자
+    private String img;                 // 이미지 파일 Url
+    private int answerValue;            // 정답 번호
+    private String exam1;               // 정답 예시 1
+    private String exam2;               // 정답 예시 2
+    private String exam3;               // 정답 예시 3
+    private boolean isCorrect;          // 일치 여부
+    private boolean boardUser;          // 로그인 사용자 작성자 일치 여부
+    private List<AnswerReply> answerReplyList; // 댓글 리스트
 
 
     public MemeResponseDto(MemeBoard meme) {

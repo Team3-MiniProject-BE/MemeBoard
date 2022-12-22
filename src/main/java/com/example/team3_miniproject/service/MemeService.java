@@ -51,33 +51,35 @@ public class MemeService {
         return new MemeResponseDto(meme);
     }
 
+    // 전체 페이지 조회
     public List<MemeListResponseDto> getMemeList() {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
         List<MemeBoard> memes = memeRepository.findAll(sort);
         return memes.stream().map(MemeListResponseDto::new).collect(Collectors.toList());
     }
 
-    // 선택 페이지 조회
+    // 선택 페이지 조회 ( 선택 게시판 작성자, 접속 사용자 일치 여부 체크 )
     // 작성자 : 김규리
     public MemeResponseDto getMemos(Long id, User user) {
         MemeBoard memeBoard = memeRepository.findById(id).orElseThrow(
                 () -> new RequestException(ErrorCode.NOT_FOUND_BOARD_404)                  // 확인할 게시글이 없습니다.
         );
-        boolean checkUserid = false;
-        Optional<Answer> answer = answerRepository.findByUserIdAndMemeBoardId(user.getId(), id);
 
-        if (memeBoard.getUsername().equals(user.getUsername())) {
-            checkUserid = true;
-            if (answer.isEmpty()) {
-                return new MemeResponseDto(memeBoard, false, checkUserid);
+        boolean checkUserid = false;
+        Optional<Answer> answer = answerRepository.findByUserIdAndMemeBoardId(user.getId(), id);        // answer Repository에서 접속한 사용자와 일치하는 정보 찾기
+
+        if (memeBoard.getUsername().equals(user.getUsername())) {                                       // 선택 게시판 작성자, 접속 사용자 일치 여부
+            checkUserid = true;                                                                         // 일치하면 checkUserid = true
+            if (answer.isEmpty()) {                                                                     // 69행에서 정답을 맞춘 사용자가 있을경우 = 이 게시물의 정답자 일 경우
+                return new MemeResponseDto(memeBoard, false, checkUserid);                      // Iscorrect = true
             } else {
-                return new MemeResponseDto(memeBoard, true, checkUserid);
+                return new MemeResponseDto(memeBoard, true, checkUserid);                       // 아닐경우 False
             }
-        } else {
-            if (answer.isEmpty()) {
-                return new MemeResponseDto(memeBoard, false, checkUserid);
+        } else {                                                                                        // 일치하지않으면 checkUserid = false
+            if (answer.isEmpty()) {                                                                     // 69행에서 정답을 맞춘 사용자가 있을경우 = 이 게시물의 정답자 일 경우
+                return new MemeResponseDto(memeBoard, false, checkUserid);                      // Iscorrect = true
             } else {
-                return new MemeResponseDto(memeBoard, true, checkUserid);
+                return new MemeResponseDto(memeBoard, true, checkUserid);                       // 아닐경우 False
             }
         }
     }
