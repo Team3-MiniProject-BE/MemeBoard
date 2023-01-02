@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rds-intstance.cglmyo5weiko.ap-northeast-2.rds.amazonaws.com:3306/meme?serverTimezone=Asia/Seoul
-    username: admin
-    password: rlarbfl1!
+    url: jdbc:mysql://localhost:3306/meme?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
   thymeleaf:
     cache: 'false'
   jpa:
@@ -21,6 +21,9 @@ servlet:
   multipart:
     max-file-size: 10MB
     max-request-size: 10MB
+jwt:
+  secret:
+    key: 7ZWt7ZW0OTntmZTsnbTtjIXtlZzqta3snYTrhIjrqLjshLjqs4TroZzrgpjslYTqsIDsnpDtm4zrpa3tlZzqsJzrsJzsnpDrpbzrp4zrk6TslrTqsIDsnpA=
 
 cloud:
   aws:

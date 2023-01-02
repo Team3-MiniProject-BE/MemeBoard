@@ -13,7 +13,6 @@ public class Team3MiniProjectApplication {
             + "classpath:application.yml,"
             + "classpath:aws.yml";
 
-
     public static void main(String[] args) {
         new SpringApplicationBuilder(Team3MiniProjectApplication.class)
                 .properties(APPLICATION_LOCATIONS)
